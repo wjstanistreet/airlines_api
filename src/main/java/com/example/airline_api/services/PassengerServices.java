@@ -15,7 +15,7 @@ public class PassengerServices {
     @Autowired
     PassengerRepository passengerRepository;
 
-    public void addPassenger(Passenger passenger){
+    public void savePassenger(Passenger passenger){
         passengerRepository.save(passenger);
     }
 
