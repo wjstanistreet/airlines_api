@@ -47,4 +47,10 @@ public class FlightServices {
         flightRepository.deleteById(id);
         return id;
     }
+
+    public boolean canPassengerBeBooked(Long id){
+        int numberOfPassengersOnFlight = flightRepository.findById(id).get().getPassengers().size();
+        int flightCapacity = flightRepository.findById(id).get().getCapacity();
+        return (numberOfPassengersOnFlight < flightCapacity);
+    }
 }

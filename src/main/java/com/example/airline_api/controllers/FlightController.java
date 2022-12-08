@@ -51,8 +51,12 @@ public class FlightController {
     // Book passenger on a flight
     @PatchMapping(value = "/{id}")
     public ResponseEntity<Flight> addPassengerToFlight(@RequestBody Passenger passenger, @PathVariable Long id){
-        flightServices.addPassengerToFlightById(id, passenger);
-        return new ResponseEntity<>(flightServices.getFlightById(id).get(), HttpStatus.OK);
+        if (flightServices.canPassengerBeBooked(id)) {
+            flightServices.addPassengerToFlightById(id, passenger);
+            return new ResponseEntity<>(flightServices.getFlightById(id).get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(flightServices.getFlightById(id).get(), HttpStatus.FORBIDDEN);
+        }
     }
 
     // Cancel flight
